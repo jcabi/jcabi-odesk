@@ -30,23 +30,41 @@
 package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
+import com.jcabi.aspects.Loggable;
+import com.rexsl.test.Request;
 import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * Odesk.
+ * RESTful {@link Teams}.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  * @since 0.1
  */
 @Immutable
-public interface Odesk {
+@ToString
+@Loggable(Loggable.DEBUG)
+@EqualsAndHashCode(of = "entry")
+final class RtTeams implements Teams {
 
     /**
-     * Get teams.
-     * @return Teams
+     * Request to use.
      */
-    @NotNull(message = "teams is never NULL")
-    Teams teams();
+    private final transient Request entry;
 
+    /**
+     * Public ctor.
+     * @param req Request
+     */
+    RtTeams(final Request req) {
+        this.entry = req;
+    }
+
+    @Override
+    @NotNull(message = "team is never NULL")
+    public Team team(@NotNull(message = "ref can't be NULL") final String ref) {
+        return new RtTeam(this.entry, ref);
+    }
 }

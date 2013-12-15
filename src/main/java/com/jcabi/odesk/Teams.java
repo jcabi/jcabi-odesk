@@ -33,20 +33,21 @@ import com.jcabi.aspects.Immutable;
 import javax.validation.constraints.NotNull;
 
 /**
- * Odesk.
+ * Teams.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  * @since 0.1
  */
 @Immutable
-public interface Odesk {
+public interface Teams {
 
     /**
-     * Get teams.
-     * @return Teams
+     * Get team by reference.
+     * @param ref Reference
+     * @return Team
      */
-    @NotNull(message = "teams is never NULL")
-    Teams teams();
+    @NotNull(message = "team is never NULL")
+    Team team(@NotNull(message = "ref can't be NULL") String ref);
 
 }

@@ -29,24 +29,41 @@
  */
 package com.jcabi.odesk;
 
-import com.jcabi.aspects.Immutable;
-import javax.validation.constraints.NotNull;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Assume;
+import org.junit.Test;
 
 /**
- * Odesk.
- *
+ * Integration case for {@link RtOdesk}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 0.1
+ * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-@Immutable
-public interface Odesk {
+public final class RtOdeskITCase {
 
     /**
-     * Get teams.
-     * @return Teams
+     * RtOdesk can authenticate itself.
+     * @throws Exception If some problem inside
      */
-    @NotNull(message = "teams is never NULL")
-    Teams teams();
+    @Test
+    public void authenticatesItself() throws Exception {
+        final Odesk odesk = RtOdeskITCase.odesk();
+        MatcherAssert.assertThat(
+            odesk,
+            Matchers.notNullValue()
+        );
+    }
+
+    /**
+     * Create and return odesk to test.
+     * @return Repo
+     * @throws Exception If some problem inside
+     */
+    private static Odesk odesk() throws Exception {
+        final String key = System.getProperty("failsafe.odesk.key");
+        Assume.assumeThat(key, Matchers.notNullValue());
+        return new RtOdesk(key, System.getProperty("failsafe.odesk.token"));
+    }
 
 }

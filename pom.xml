@@ -140,7 +140,7 @@
                     <configuration>
                         <systemPropertyVariables>
                             <failsafe.odesk.key>${failsafe.odesk.key}</failsafe.odesk.key>
-                            <failsafe.odesk.secret>${failsafe.odesk.secret}</failsafe.odesk.secret>
+                            <failsafe.odesk.token>${failsafe.odesk.token}</failsafe.odesk.token>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>

@@ -30,23 +30,22 @@
 package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
-import javax.validation.constraints.NotNull;
 
 /**
- * Odesk.
+ * Team.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  * @since 0.1
  */
 @Immutable
-public interface Odesk {
+public interface Team {
 
     /**
-     * Get teams.
-     * @return Teams
+     * Get adjustments.
+     * @return Adjustments
+     * @see <a href="http://developers.odesk.com/w/page/25400171/Custom%20Payment%20API">Custom Payment API</a>
      */
-    @NotNull(message = "teams is never NULL")
-    Teams teams();
+    Adjustments adjustments();
 
 }

@@ -29,41 +29,44 @@
  */
 package com.jcabi.odesk;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Assume;
-import org.junit.Test;
+import com.jcabi.aspects.Immutable;
+import com.jcabi.aspects.Loggable;
+import com.rexsl.test.Request;
+import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * Integration case for {@link Odesk}.
+ * Default RESTful implementation of {@link Odesk}.
+ *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
+ * @since 0.1
  */
-public final class DefaultOdeskITCase {
+@Immutable
+@ToString
+@Loggable(Loggable.DEBUG)
+@EqualsAndHashCode(of = "entry")
+public final class RtOdesk implements Odesk {
 
     /**
-     * DefaultOdesk can authenticate itself.
-     * @throws Exception If some problem inside
+     * Request to use.
      */
-    @Test
-    public void authenticatesItself() throws Exception {
-        final Odesk odesk = DefaultOdeskITCase.odesk();
-        MatcherAssert.assertThat(
-            odesk,
-            Matchers.notNullValue()
-        );
+    private final transient Request entry;
+
+    /**
+     * Public ctor.
+     * @param key Consumer key
+     * @param token OAuth token
+     */
+    public RtOdesk(final String key, final String token) {
+        this.entry = null;
     }
 
-    /**
-     * Create and return odesk to test.
-     * @return Repo
-     * @throws Exception If some problem inside
-     */
-    private static Odesk odesk() throws Exception {
-        final String key = System.getProperty("failsafe.odesk.key");
-        Assume.assumeThat(key, Matchers.notNullValue());
-        return new DefaultOdesk();
+    @Override
+    @NotNull(message = "teams is never NULL")
+    public Teams teams() {
+        return new RtTeams(this.entry);
     }
 
 }

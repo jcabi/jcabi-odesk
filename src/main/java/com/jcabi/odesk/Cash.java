@@ -31,20 +31,52 @@ package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
+import java.math.BigDecimal;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Default implementation of {@link Odesk}.
+ * Cash amount.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  * @since 0.1
  */
 @Immutable
-@ToString
-@Loggable(Loggable.DEBUG)
-@EqualsAndHashCode(of = "object")
-public final class DefaultOdesk implements Odesk {
+public interface Cash {
+
+    /**
+     * Is it empty (zero)?
+     * @return TRUE if it's empty
+     */
+    boolean isEmpty();
+
+    /**
+     * Get it in big decimal format.
+     * @return Decimals
+     */
+    BigDecimal decimal();
+
+    /**
+     * Simple implementation.
+     */
+    @Immutable
+    @ToString
+    @Loggable(Loggable.DEBUG)
+    @EqualsAndHashCode(of = "value")
+    final class S implements Cash {
+        private final transient String value;
+        public S(final String txt) {
+            this.value = new BigDecimal(txt).toString();
+        }
+        @Override
+        public boolean isEmpty() {
+            return this.decimal().intValue() == 0;
+        }
+        @Override
+        public BigDecimal decimal() {
+            return new BigDecimal(this.value);
+        }
+    }
 
 }

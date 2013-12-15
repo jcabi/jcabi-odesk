@@ -6,7 +6,7 @@ is an object oriented Java adapter of
 [Odesk API](http://developers.odesk.com/w/page/12363985/API%20Documentation):
 
 ```java
-import com.jcabi.odesk.DefaultOdesk;
+import com.jcabi.odesk.RtOdesk;
 import com.jcabi.odesk.Odesk;
 public class Main {
   public static void main(String[] args) {

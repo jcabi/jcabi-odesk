@@ -6,7 +6,7 @@ Set of classes in `com.jcabi.odesk` package is
 an object oriented API of [Odesk](http://www.odesk.com):
 
 ```java
-import com.jcabi.odesk.DefaultOdesk;
+import com.jcabi.odesk.RtOdesk;
 import com.jcabi.odesk.Odesk;
 public class Main {
   public static void main(String[] args) {
