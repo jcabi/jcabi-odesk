@@ -37,6 +37,9 @@ import com.rexsl.test.response.JsonResponse;
 import com.rexsl.test.response.RestResponse;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.json.JsonString;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -51,7 +54,7 @@ import lombok.ToString;
 @Immutable
 @ToString
 @Loggable(Loggable.DEBUG)
-@EqualsAndHashCode(of = { "entry", "ref" })
+@EqualsAndHashCode(of = "entry")
 final class RtAdjustments implements Adjustments {
 
     /**
@@ -60,18 +63,13 @@ final class RtAdjustments implements Adjustments {
     private final transient Request entry;
 
     /**
-     * Team reference.
-     */
-    private final transient String ref;
-
-    /**
      * Public ctor.
      * @param req Request
      * @param name Team ref/name
      */
     RtAdjustments(final Request req, final String name) {
-        this.entry = req;
-        this.ref = name;
+        this.entry = req.uri().path("teams")
+            .path(name).path("adjustments.json").back();
     }
 
     @Override
@@ -84,9 +82,7 @@ final class RtAdjustments implements Adjustments {
         @NotNull(message = "comments can't be NULL") final String comments,
         @NotNull(message = "notes can't be NULL") final String notes)
         throws IOException {
-        final RequestBody body = this.entry.uri()
-            .path("teams").path(this.ref).path("adjustments.json").back()
-            .body()
+        final RequestBody body = this.entry.body()
             .formParam("engagement__reference", engagement)
             .formParam("comments", comments)
             .formParam("notes", notes);
@@ -102,5 +98,21 @@ final class RtAdjustments implements Adjustments {
             .as(JsonResponse.class)
             .json().readObject().getJsonObject("adjustment")
             .getString("reference");
+    }
+
+    @Override
+    @NotNull(message = "iterable of adjustments is never NULL")
+    public Iterable<String> iterate() throws IOException {
+        final Collection<JsonString> values = this.entry.fetch()
+            .as(RestResponse.class)
+            .assertStatus(HttpURLConnection.HTTP_OK)
+            .as(JsonResponse.class)
+            .json().readObject().getJsonArray("adjustments")
+            .getValuesAs(JsonString.class);
+        final Collection<String> refs = new ArrayList<String>(values.size());
+        for (final JsonString val : values) {
+            refs.add(val.getString());
+        }
+        return refs;
     }
 }

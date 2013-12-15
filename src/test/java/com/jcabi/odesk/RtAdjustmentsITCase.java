@@ -29,48 +29,43 @@
  */
 package com.jcabi.odesk;
 
-import com.jcabi.aspects.Immutable;
-import java.io.IOException;
-import javax.validation.constraints.NotNull;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Assume;
+import org.junit.Test;
 
 /**
- * Adjustments.
- *
+ * Integration case for {@link RtAdjustments}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 0.1
+ * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-@Immutable
-public interface Adjustments {
+public final class RtAdjustmentsITCase {
 
     /**
-     * Make a custom/bonus payment.
-     * @param engagement Engagement reference number
-     * @param amount Amount that the provider will receive (can be zero)
-     * @param charge Amount to be charged from the payer (can be zero)
-     * @param comments Payment comments
-     * @param notes Notes to add to the payment
-     * @return Reference ID of a new adjustment
-     * @throws IOException If fails due to IO problem
-     * @see <a href="http://developers.odesk.com/w/page/25400171/Custom%20Payment%20API">Custom Payment API</a>
+     * RtAdjustments can list all items.
+     * @throws Exception If some problem inside
      */
-    @NotNull(message = "adjustment ID is never NULL")
-    String add(
-        @NotNull(message = "engagement ref can't be NULL") String engagement,
-        @NotNull(message = "amount can't be NULL") Cash amount,
-        @NotNull(message = "charge amount can't be NULL") Cash charge,
-        @NotNull(message = "comments can't be NULL") String comments,
-        @NotNull(message = "notes can't be NULL") String notes)
-        throws IOException;
-
+    @Test
+    public void listsAllAdjustments() throws Exception {
+        final Adjustments adjustments = RtAdjustmentsITCase.adjustments();
+        MatcherAssert.assertThat(
+            adjustments.iterate(),
+            Matchers.notNullValue()
+        );
+    }
 
     /**
-     * Get list of all adjustments (their reference IDs).
-     * @return List of them all
-     * @throws IOException If fails due to IO problem
-     * @see <a href="http://developers.odesk.com/w/page/25400171/Custom%20Payment%20API">Custom Payment API</a>
+     * Create and return adjustments to test.
+     * @return Repo
+     * @throws Exception If some problem inside
      */
-    @NotNull(message = "iterable of adjustments is never NULL")
-    Iterable<String> iterate() throws IOException;
+    private static Adjustments adjustments() throws Exception {
+        final String key = System.getProperty("failsafe.odesk.key");
+        Assume.assumeThat(key, Matchers.notNullValue());
+        return new RtOdesk(key, System.getProperty("failsafe.odesk.token"))
+            .teams().team(System.getProperty("failsafe.odesk.team"))
+            .adjustments();
+    }
 
 }
