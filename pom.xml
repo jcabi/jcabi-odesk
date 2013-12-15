@@ -141,6 +141,7 @@
                         <systemPropertyVariables>
                             <failsafe.odesk.key>${failsafe.odesk.key}</failsafe.odesk.key>
                             <failsafe.odesk.token>${failsafe.odesk.token}</failsafe.odesk.token>
+                            <failsafe.odesk.team>${failsafe.odesk.team}</failsafe.odesk.team>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
