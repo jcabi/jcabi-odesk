@@ -3,7 +3,7 @@
 More details are here: [odesk.jcabi.com](http://odesk.jcabi.com/)
 
 Set of classes in `com.jcabi.odesk` package is
-an object oriented API of Github:
+an object oriented API of [Odesk](http://www.odesk.com):
 
 ```java
 import com.jcabi.odesk.DefaultOdesk;
