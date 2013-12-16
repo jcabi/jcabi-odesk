@@ -32,7 +32,7 @@ package com.jcabi.odesk;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.rexsl.test.Request;
-import com.rexsl.test.RequestBody;
+import com.rexsl.test.RequestURI;
 import com.rexsl.test.response.JsonResponse;
 import com.rexsl.test.response.RestResponse;
 import java.io.IOException;
@@ -86,17 +86,17 @@ final class RtAdjustments implements Adjustments {
         @NotNull(message = "comments can't be NULL") final String comments,
         @NotNull(message = "notes can't be NULL") final String notes)
         throws IOException {
-        final RequestBody body = this.entry.body()
-            .formParam("engagement__reference", engagement)
-            .formParam("comments", comments)
-            .formParam("notes", notes);
+        RequestURI uri = this.entry.uri()
+            .queryParam("engagement__reference", engagement)
+            .queryParam("comments", comments)
+            .queryParam("notes", notes);
         if (!amount.isEmpty()) {
-            body.formParam("amount", amount.toString());
+            uri = uri.queryParam("amount", amount.toString());
         }
         if (!charge.isEmpty()) {
-            body.formParam("charge_amount", charge.toString());
+            uri = uri.queryParam("charge_amount", charge.toString());
         }
-        return body.back().method(Request.POST).fetch()
+        return uri.back().method(Request.POST).fetch()
             .as(RestResponse.class)
             .assertStatus(HttpURLConnection.HTTP_OK)
             .as(JsonResponse.class)

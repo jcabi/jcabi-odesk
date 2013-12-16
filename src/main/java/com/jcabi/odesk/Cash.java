@@ -33,7 +33,6 @@ import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import java.math.BigDecimal;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Cash amount.
@@ -61,7 +60,6 @@ public interface Cash {
      * Simple implementation.
      */
     @Immutable
-    @ToString
     @Loggable(Loggable.DEBUG)
     @EqualsAndHashCode(of = "value")
     final class S implements Cash {
@@ -83,6 +81,10 @@ public interface Cash {
         @Override
         public BigDecimal decimal() {
             return new BigDecimal(this.value);
+        }
+        @Override
+        public String toString() {
+            return this.decimal().toString();
         }
     }
 

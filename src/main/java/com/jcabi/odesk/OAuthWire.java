@@ -31,16 +31,20 @@ package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
 import com.jcabi.immutable.Array;
+import com.jcabi.log.Logger;
 import com.rexsl.test.Request;
 import com.rexsl.test.Response;
 import com.rexsl.test.Wire;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.ws.rs.core.HttpHeaders;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.apache.commons.lang3.CharEncoding;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.OAuthRequest;
@@ -113,11 +117,27 @@ public final class OAuthWire implements Wire {
             .provider(OAuthWire.OdeskApi.class)
             .apiKey(this.key)
             .apiSecret(this.secret)
+            .debugStream(Logger.stream(Level.FINE, this))
             .build();
-        final OAuthRequest oauth = new OAuthRequest(Verb.valueOf(method), home);
+        final String[] parts = home.split("\\?", 2);
+        final OAuthRequest oauth = new OAuthRequest(
+            Verb.valueOf(method), parts[0]
+        );
+        if (parts.length == 2) {
+            for (final String pair : parts[1].split("&")) {
+                final String[] eqn = pair.split("=", 2);
+                final String value;
+                if (eqn.length == 2) {
+                    value = URLDecoder.decode(eqn[1], CharEncoding.UTF_8);
+                } else {
+                    value = "";
+                }
+                oauth.addQuerystringParameter(eqn[0], value);
+            }
+        }
         service.signRequest(new Token(this.token, this.tsecret), oauth);
         return this.origin.send(
-            req, home, method,
+            req, oauth.getCompleteUrl(), method,
             new Array<Map.Entry<String, String>>(headers).with(
                 new AbstractMap.SimpleEntry<String, String>(
                     HttpHeaders.AUTHORIZATION,

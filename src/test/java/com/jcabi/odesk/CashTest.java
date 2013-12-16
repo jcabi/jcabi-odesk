@@ -31,61 +31,41 @@ package com.jcabi.odesk;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
 import org.junit.Test;
 
 /**
- * Integration case for {@link RtAdjustments}.
+ * Test case for {@link Cash}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-public final class RtAdjustmentsITCase {
+public final class CashTest {
 
     /**
-     * Team number.
-     */
-    private static final String TEAM =
-        System.getProperty("failsafe.odesk.team");
-
-    /**
-     * Odesk we're working with.
-     * @checkstyle VisibilityModifier (3 lines)
-     */
-    @Rule
-    public final transient OdeskRule rule = new OdeskRule();
-
-    /**
-     * RtAdjustments can list all items.
+     * Cash can detect empty value.
      * @throws Exception If some problem inside
      */
     @Test
-    @org.junit.Ignore
-    public void listsAllAdjustments() throws Exception {
-        final Adjustments adjustments = this.rule.odesk()
-            .teams()
-            .team(RtAdjustmentsITCase.TEAM)
-            .adjustments();
+    public void detectsZero() throws Exception {
         MatcherAssert.assertThat(
-            adjustments.iterate(),
-            Matchers.notNullValue()
+            new Cash.S("0.0").isEmpty(),
+            Matchers.is(true)
+        );
+        MatcherAssert.assertThat(
+            new Cash.S("10.0").isEmpty(),
+            Matchers.is(false)
         );
     }
 
     /**
-     * RtAdjustments can make a bonus payment.
+     * Cash can print to string.
      * @throws Exception If some problem inside
      */
     @Test
-    public void makesBonusPayment() throws Exception {
-        final Adjustments adjustments = this.rule.odesk()
-            .teams()
-            .team(RtAdjustmentsITCase.TEAM)
-            .adjustments();
-        adjustments.add(
-            "13369359", new Cash.S("10.00"), new Cash.S("0.0"),
-            "advance payment",
-            "please, keep this money for the future, I'm testing :)"
+    public void printsValueToString() throws Exception {
+        final String txt = "15.50";
+        MatcherAssert.assertThat(
+            new Cash.S(txt),
+            Matchers.hasToString(txt)
         );
     }
 
