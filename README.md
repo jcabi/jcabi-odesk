@@ -10,8 +10,20 @@ import com.jcabi.odesk.RtOdesk;
 import com.jcabi.odesk.Odesk;
 public class Main {
   public static void main(String[] args) {
-    Odesk odesk = new DefaultOdesk(".. your OAuth token ..");
-    // to be continued
+    Odesk odesk = new RtOdesk(
+      key, // odesk application key
+      secret, // odesk application secret code
+      token, // OAuth access token
+      tsecret // OAuth access token, secret part
+    );
+    Team team = odesk.teams().team(/* team reference ID */);
+    String ref = team.adjustments().add(
+      "13369463", // contract number,
+      new Cash.S("10.00"), // amount to be paid to the supplier
+      new Cash.S("0.0"),
+      "bonus payment for you dude", // comments
+      "thanks for your good work, keep it up!" // notes
+    );
   }
 }
 ```
