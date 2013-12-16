@@ -32,6 +32,7 @@ package com.jcabi.odesk;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.rexsl.test.Request;
+import com.rexsl.test.request.JdkRequest;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -56,11 +57,16 @@ public final class RtOdesk implements Odesk {
 
     /**
      * Public ctor.
-     * @param key Consumer key
-     * @param token OAuth token
+     * @param key App key
+     * @param secret App secret
+     * @param token OAuth access token
+     * @param tsecret OAuth access token secret part
      */
-    public RtOdesk(final String key, final String token) {
-        this.entry = null;
+    public RtOdesk(final String key, final String secret,
+        final String token, final String tsecret) {
+        this.entry = new JdkRequest("https://www.odesk.com/").through(
+            OAuthWire.class, key, secret, token, tsecret
+        );
     }
 
     @Override

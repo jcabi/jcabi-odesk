@@ -30,30 +30,18 @@
 package com.jcabi.odesk;
 
 import com.jcabi.log.Logger;
-import java.util.Scanner;
-import org.hamcrest.Matchers;
-import org.junit.Assume;
-import org.junit.Test;
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.model.Token;
-import org.scribe.model.Verifier;
-import org.scribe.oauth.OAuthService;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 
 /**
- * OAuth example for {@link RtOdesk}.
- *
- * <p>Run this example from command line like this:
- *
- * <pre>
- * $ mvn clean install -Dit.test=RtOdeskOauthExample \
- *   -Dfailsafe.odesk.key=... -Dfailsafe.odesk.secret=...
- * </pre>
+ * Rule that creates {@link Odesk} instance.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
+ * @since 0.3
  */
-public final class RtOdeskOauthExample {
+final class OdeskRule implements TestRule {
 
     /**
      * Odesk key.
@@ -68,28 +56,59 @@ public final class RtOdeskOauthExample {
         System.getProperty("failsafe.odesk.secret");
 
     /**
-     * Odesk access token can be obtained through OAuth.
-     * @throws Exception If some problem inside
+     * Odesk token.
      */
-    @Test
-    public void obtainsAccessToken() throws Exception {
-        Assume.assumeThat(RtOdeskOauthExample.KEY, Matchers.notNullValue());
-        final OAuthService service = new ServiceBuilder()
-            .provider(OAuthWire.OdeskApi.class)
-            .apiKey(RtOdeskOauthExample.KEY)
-            .apiSecret(RtOdeskOauthExample.SECRET)
-            .build();
-        final Token rqst = service.getRequestToken();
-        Logger.info(
-            this, "authorization URL: %s (open it in a browser)",
-            service.getAuthorizationUrl(rqst)
-        );
-        Logger.info(this, "enter Odesk verifier and press ENTER:");
-        final Scanner input = new Scanner(System.in);
-        final Verifier verifier = new Verifier(input.nextLine());
-        final Token access = service.getAccessToken(rqst, verifier);
-        Logger.info(this, "access token is: %s", access.getToken());
-        Logger.info(this, "access token secret is: %s", access.getSecret());
+    private static final String TOKEN =
+        System.getProperty("failsafe.odesk.token");
+
+    /**
+     * Token secret.
+     */
+    private static final String TSECRET =
+        System.getProperty("failsafe.odesk.tsecret");
+
+    /**
+     * Odesk we're working with.
+     */
+    private transient Odesk subj;
+
+    /**
+     * Get odesk.
+     * @return Odesk
+     */
+    public Odesk odesk() {
+        return this.subj;
     }
 
+    /**
+     * Create Odesk subj.
+     * @throws Exception If fails
+     */
+    private void connect() throws Exception {
+        this.subj = new RtOdesk(
+            OdeskRule.KEY,
+            OdeskRule.SECRET,
+            OdeskRule.TOKEN,
+            OdeskRule.TSECRET
+        );
+    }
+
+    @Override
+    public Statement apply(final Statement stmt, final Description desc) {
+        // @checkstyle IllegalThrows (10 lines)
+        return new Statement() {
+            @Override
+            public void evaluate() throws Throwable {
+                if (OdeskRule.KEY == null) {
+                    Logger.warn(
+                        this,
+                        "sys prop failsafe.odesk.key is not set, skipping"
+                    );
+                } else {
+                    OdeskRule.this.connect();
+                    stmt.evaluate();
+                }
+            }
+        };
+    }
 }

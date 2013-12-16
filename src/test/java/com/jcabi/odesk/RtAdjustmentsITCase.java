@@ -31,7 +31,7 @@ package com.jcabi.odesk;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Assume;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -43,29 +43,26 @@ import org.junit.Test;
 public final class RtAdjustmentsITCase {
 
     /**
+     * Odesk we're working with.
+     * @checkstyle VisibilityModifier (3 lines)
+     */
+    @Rule
+    public final transient OdeskRule rule = new OdeskRule();
+
+    /**
      * RtAdjustments can list all items.
      * @throws Exception If some problem inside
      */
     @Test
     public void listsAllAdjustments() throws Exception {
-        final Adjustments adjustments = RtAdjustmentsITCase.adjustments();
+        final Team team = this.rule.odesk().teams().team(
+            System.getProperty("failsafe.odesk.team")
+        );
+        final Adjustments adjustments = team.adjustments();
         MatcherAssert.assertThat(
             adjustments.iterate(),
             Matchers.notNullValue()
         );
-    }
-
-    /**
-     * Create and return adjustments to test.
-     * @return Repo
-     * @throws Exception If some problem inside
-     */
-    private static Adjustments adjustments() throws Exception {
-        final String key = System.getProperty("failsafe.odesk.key");
-        Assume.assumeThat(key, Matchers.notNullValue());
-        return new RtOdesk(key, System.getProperty("failsafe.odesk.token"))
-            .teams().team(System.getProperty("failsafe.odesk.team"))
-            .adjustments();
     }
 
 }
