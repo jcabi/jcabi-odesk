@@ -76,6 +76,7 @@ public final class RtAdjustmentsITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @org.junit.Ignore
     public void makesBonusPayment() throws Exception {
         final Adjustments adjustments = this.rule.odesk()
             .teams()
