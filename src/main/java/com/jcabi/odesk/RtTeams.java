@@ -32,6 +32,13 @@ package com.jcabi.odesk;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.rexsl.test.Request;
+import com.rexsl.test.response.JsonResponse;
+import com.rexsl.test.response.RestResponse;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.json.JsonObject;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -60,6 +67,23 @@ final class RtTeams implements Teams {
      */
     RtTeams(final Request req) {
         this.entry = req;
+    }
+
+    @Override
+    public Iterable<String> iterate() throws IOException {
+        final Collection<JsonObject> teams = this.entry
+            .uri().path("v2/teams.json").back()
+            .fetch()
+            .as(RestResponse.class)
+            .assertStatus(HttpURLConnection.HTTP_OK)
+            .as(JsonResponse.class)
+            .json().readObject().getJsonArray("teams")
+            .getValuesAs(JsonObject.class);
+        final Collection<String> refs = new ArrayList<String>(teams.size());
+        for (final JsonObject team : teams) {
+            refs.add(team.getString("reference"));
+        }
+        return refs;
     }
 
     @Override

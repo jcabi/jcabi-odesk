@@ -30,7 +30,6 @@
 package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
-import com.jcabi.aspects.Loggable;
 import com.jcabi.immutable.Array;
 import com.rexsl.test.Request;
 import com.rexsl.test.Response;
@@ -58,7 +57,6 @@ import org.scribe.oauth.OAuthService;
  */
 @Immutable
 @ToString
-@Loggable(Loggable.DEBUG)
 @EqualsAndHashCode(of = { "origin", "key", "secret", "token", "tsecret" })
 public final class OAuthWire implements Wire {
 
@@ -94,6 +92,7 @@ public final class OAuthWire implements Wire {
      * @param scrt App secret
      * @param tkn OAuth access token
      * @param tscrt OAuth access token secret part
+     * @checkstyle ParameterNumber (10 lines)
      */
     public OAuthWire(final Wire wire, final String akey, final String scrt,
         final String tkn, final String tscrt) {
@@ -104,6 +103,7 @@ public final class OAuthWire implements Wire {
         this.tsecret = tscrt;
     }
 
+    // @checkstyle ParameterNumber (10 lines)
     @Override
     public Response send(final Request req, final String home,
         final String method,

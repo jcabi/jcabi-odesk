@@ -69,10 +69,6 @@
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-manifests</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jcabi</groupId>
             <artifactId>jcabi-log</artifactId>
         </dependency>
         <dependency>
@@ -147,6 +143,7 @@
                             <failsafe.odesk.key>${failsafe.odesk.key}</failsafe.odesk.key>
                             <failsafe.odesk.secret>${failsafe.odesk.secret}</failsafe.odesk.secret>
                             <failsafe.odesk.token>${failsafe.odesk.token}</failsafe.odesk.token>
+                            <failsafe.odesk.tsecret>${failsafe.odesk.tsecret}</failsafe.odesk.tsecret>
                             <failsafe.odesk.team>${failsafe.odesk.team}</failsafe.odesk.team>
                         </systemPropertyVariables>
                     </configuration>

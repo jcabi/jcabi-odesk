@@ -30,6 +30,7 @@
 package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
+import java.io.IOException;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -41,6 +42,14 @@ import javax.validation.constraints.NotNull;
  */
 @Immutable
 public interface Teams {
+
+    /**
+     * Get reference IDs of all teams.
+     * @return List of reference IDs
+     * @throws IOException If fails due to IO problem
+     */
+    @NotNull(message = "list of IDs is never NULL")
+    Iterable<String> iterate() throws IOException;
 
     /**
      * Get team by reference.

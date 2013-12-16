@@ -68,10 +68,14 @@ final class RtAdjustments implements Adjustments {
      * @param name Team ref/name
      */
     RtAdjustments(final Request req, final String name) {
-        this.entry = req.uri().path("teams")
-            .path(name).path("adjustments.json").back();
+        this.entry = req.uri()
+            .path("v2/teams")
+            .path(name)
+            .path("adjustments.json")
+            .back();
     }
 
+    // @checkstyle ParameterNumber (10 lines)
     @Override
     @NotNull(message = "adjustment ID is never NULL")
     public String add(

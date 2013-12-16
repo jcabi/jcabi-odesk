@@ -65,7 +65,14 @@ public interface Cash {
     @Loggable(Loggable.DEBUG)
     @EqualsAndHashCode(of = "value")
     final class S implements Cash {
+        /**
+         * Encapsulated dollar value.
+         */
         private final transient String value;
+        /**
+         * Public ctor.
+         * @param txt Text presentation of monetary value, e.g. "150.30"
+         */
         public S(final String txt) {
             this.value = new BigDecimal(txt).toString();
         }

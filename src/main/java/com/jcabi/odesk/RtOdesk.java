@@ -33,6 +33,8 @@ import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.rexsl.test.Request;
 import com.rexsl.test.request.JdkRequest;
+import com.rexsl.test.wire.RetryWire;
+import com.rexsl.test.wire.VerboseWire;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -61,12 +63,14 @@ public final class RtOdesk implements Odesk {
      * @param secret App secret
      * @param token OAuth access token
      * @param tsecret OAuth access token secret part
+     * @checkstyle ParameterNumber (10 lines)
      */
     public RtOdesk(final String key, final String secret,
         final String token, final String tsecret) {
-        this.entry = new JdkRequest("https://www.odesk.com/").through(
-            OAuthWire.class, key, secret, token, tsecret
-        );
+        this.entry = new JdkRequest("https://www.odesk.com/api/hr")
+            .through(VerboseWire.class)
+            .through(RetryWire.class)
+            .through(OAuthWire.class, key, secret, token, tsecret);
     }
 
     @Override

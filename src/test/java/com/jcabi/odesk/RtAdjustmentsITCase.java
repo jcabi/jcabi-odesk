@@ -43,6 +43,12 @@ import org.junit.Test;
 public final class RtAdjustmentsITCase {
 
     /**
+     * Team number.
+     */
+    private static final String TEAM =
+        System.getProperty("failsafe.odesk.team");
+
+    /**
      * Odesk we're working with.
      * @checkstyle VisibilityModifier (3 lines)
      */
@@ -54,14 +60,32 @@ public final class RtAdjustmentsITCase {
      * @throws Exception If some problem inside
      */
     @Test
+    @org.junit.Ignore
     public void listsAllAdjustments() throws Exception {
-        final Team team = this.rule.odesk().teams().team(
-            System.getProperty("failsafe.odesk.team")
-        );
-        final Adjustments adjustments = team.adjustments();
+        final Adjustments adjustments = this.rule.odesk()
+            .teams()
+            .team(RtAdjustmentsITCase.TEAM)
+            .adjustments();
         MatcherAssert.assertThat(
             adjustments.iterate(),
             Matchers.notNullValue()
+        );
+    }
+
+    /**
+     * RtAdjustments can make a bonus payment.
+     * @throws Exception If some problem inside
+     */
+    @Test
+    public void makesBonusPayment() throws Exception {
+        final Adjustments adjustments = this.rule.odesk()
+            .teams()
+            .team(RtAdjustmentsITCase.TEAM)
+            .adjustments();
+        adjustments.add(
+            "208083", new Cash.S("10.00"), new Cash.S("0.0"),
+            "in advance",
+            "please, keep this payment for the future, I'm testing... :)"
         );
     }
 
