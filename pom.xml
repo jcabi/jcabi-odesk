@@ -32,8 +32,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.jcabi</groupId>
-        <artifactId>parent</artifactId>
-        <version>0.13.1</version>
+        <artifactId>jcabi</artifactId>
+        <version>1.0.2</version>
     </parent>
     <artifactId>jcabi-odesk</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -72,6 +72,11 @@
             <artifactId>jcabi-log</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-http</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
@@ -96,7 +101,8 @@
         <dependency>
             <groupId>com.rexsl</groupId>
             <artifactId>rexsl-test</artifactId>
-            <version>0.11</version>
+            <version>0.12</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.json</groupId>
@@ -179,4 +185,26 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>qulice</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.ning.maven.plugins</groupId>
+                        <artifactId>maven-duplicate-finder-plugin</artifactId>
+                        <configuration>
+                            <ignoredDependencies combine.children="append">
+                                <dependency>
+                                    <groupId>com.sun.xml.bind</groupId>
+                                    <artifactId>jaxb-core</artifactId>
+                                    <version>2.2.8-b01</version>
+                                </dependency>
+                            </ignoredDependencies>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

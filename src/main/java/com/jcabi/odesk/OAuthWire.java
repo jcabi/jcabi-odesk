@@ -30,11 +30,11 @@
 package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
+import com.jcabi.http.Request;
+import com.jcabi.http.Response;
+import com.jcabi.http.Wire;
 import com.jcabi.immutable.Array;
 import com.jcabi.log.Logger;
-import com.rexsl.test.Request;
-import com.rexsl.test.Response;
-import com.rexsl.test.Wire;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.AbstractMap;

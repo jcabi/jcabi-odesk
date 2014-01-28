@@ -31,10 +31,10 @@ package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
-import com.rexsl.test.Request;
-import com.rexsl.test.request.JdkRequest;
-import com.rexsl.test.wire.RetryWire;
-import com.rexsl.test.wire.VerboseWire;
+import com.jcabi.http.Request;
+import com.jcabi.http.request.JdkRequest;
+import com.jcabi.http.wire.RetryWire;
+import com.jcabi.http.wire.VerboseWire;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
