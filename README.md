@@ -34,7 +34,7 @@ You need just this dependency:
 <dependency>
   <groupId>com.jcabi</groupId>
   <artifactId>jcabi-odesk</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
 </dependency>
 ```
 
