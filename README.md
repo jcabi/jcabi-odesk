@@ -1,5 +1,7 @@
 <img src="http://img.jcabi.com/logo-square.png" width="64px" height="64px" />
  
+[![Made By Teamed.io](http://img.teamed.io/btn.svg)](http://www.teamed.io)
+
 [![Build Status](https://travis-ci.org/jcabi/jcabi-odesk.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-odesk)
 
 More details are here: [odesk.jcabi.com](http://odesk.jcabi.com/)
