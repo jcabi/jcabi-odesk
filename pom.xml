@@ -146,34 +146,6 @@
         </dependency>
     </dependencies>
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <configuration>
-                        <systemPropertyVariables>
-                            <failsafe.odesk.key>${failsafe.odesk.key}</failsafe.odesk.key>
-                            <failsafe.odesk.secret>${failsafe.odesk.secret}</failsafe.odesk.secret>
-                            <failsafe.odesk.token>${failsafe.odesk.token}</failsafe.odesk.token>
-                            <failsafe.odesk.tsecret>${failsafe.odesk.tsecret}</failsafe.odesk.tsecret>
-                            <failsafe.odesk.team>${failsafe.odesk.team}</failsafe.odesk.team>
-                        </systemPropertyVariables>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <configuration combine.children="append">
-                        <archive>
-                            <manifestEntries>
-                                <JCabi-Revision>${build.number}</JCabi-Revision>
-                                <JCabi-Version>${project.version}</JCabi-Version>
-                                <JCabi-Date>${maven.build.timestamp}</JCabi-Date>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -192,6 +164,27 @@
         </plugins>
     </build>
     <profiles>
+        <profile>
+            <id>odesk-live</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-failsafe-plugin</artifactId>
+                            <configuration>
+                                <systemPropertyVariables>
+                                    <failsafe.odesk.key>${failsafe.odesk.key}</failsafe.odesk.key>
+                                    <failsafe.odesk.secret>${failsafe.odesk.secret}</failsafe.odesk.secret>
+                                    <failsafe.odesk.token>${failsafe.odesk.token}</failsafe.odesk.token>
+                                    <failsafe.odesk.tsecret>${failsafe.odesk.tsecret}</failsafe.odesk.tsecret>
+                                    <failsafe.odesk.team>${failsafe.odesk.team}</failsafe.odesk.team>
+                                </systemPropertyVariables>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
         <profile>
             <id>qulice</id>
             <build>
