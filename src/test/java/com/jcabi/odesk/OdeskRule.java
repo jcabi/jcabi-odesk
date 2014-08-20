@@ -80,19 +80,6 @@ final class OdeskRule implements TestRule {
         return this.subj;
     }
 
-    /**
-     * Create Odesk subj.
-     * @throws Exception If fails
-     */
-    private void connect() throws Exception {
-        this.subj = new RtOdesk(
-            OdeskRule.KEY,
-            OdeskRule.SECRET,
-            OdeskRule.TOKEN,
-            OdeskRule.TSECRET
-        );
-    }
-
     @Override
     public Statement apply(final Statement stmt, final Description desc) {
         // @checkstyle IllegalThrows (10 lines)
@@ -111,4 +98,18 @@ final class OdeskRule implements TestRule {
             }
         };
     }
+
+    /**
+     * Create Odesk subj.
+     * @throws Exception If fails
+     */
+    private void connect() throws Exception {
+        this.subj = new RtOdesk(
+            OdeskRule.KEY,
+            OdeskRule.SECRET,
+            OdeskRule.TOKEN,
+            OdeskRule.TSECRET
+        );
+    }
+
 }
