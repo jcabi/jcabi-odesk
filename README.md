@@ -4,6 +4,7 @@
 [![DevOps By Rultor.com](http://www.rultor.com/b/jcabi/jcabi-odesk)](http://www.rultor.com/p/jcabi/jcabi-odesk)
 
 [![Build Status](https://travis-ci.org/jcabi/jcabi-odesk.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-odesk)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk)
 
 More details are here: [odesk.jcabi.com](http://odesk.jcabi.com/)
 
@@ -33,21 +34,10 @@ public class Main {
 }
 ```
 
-You need just this dependency:
-
-```xml
-<dependency>
-  <groupId>com.jcabi</groupId>
-  <artifactId>jcabi-odesk</artifactId>
-  <version>0.3</version>
-</dependency>
-```
-
 ## Questions?
 
 If you have any questions about the framework, or something doesn't work as expected,
 please [submit an issue here](https://github.com/jcabi/jcabi-odesk/issues/new).
-If you want to discuss, please use our [Google Group](https://groups.google.com/forum/#!forum/jcabi).
 
 ## How to contribute?
 
