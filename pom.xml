@@ -38,7 +38,7 @@
         <version>1.14</version>
     </parent>
     <artifactId>jcabi-odesk</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.5</version>
     <packaging>jar</packaging>
     <name>jcabi-odesk</name>
     <description>Object Oriented oDesk API</description>
