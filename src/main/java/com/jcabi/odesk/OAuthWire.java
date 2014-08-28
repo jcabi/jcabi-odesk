@@ -36,6 +36,7 @@ import com.jcabi.http.Wire;
 import com.jcabi.immutable.Array;
 import com.jcabi.log.Logger;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.AbstractMap;
 import java.util.Collection;
@@ -44,7 +45,6 @@ import java.util.logging.Level;
 import javax.ws.rs.core.HttpHeaders;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.apache.commons.lang3.CharEncoding;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.OAuthRequest;
@@ -112,7 +112,7 @@ public final class OAuthWire implements Wire {
     public Response send(final Request req, final String home,
         final String method,
         final Collection<Map.Entry<String, String>> headers,
-        final byte[] content) throws IOException {
+        final InputStream content) throws IOException {
         final OAuthService service = new ServiceBuilder()
             .provider(OAuthWire.OdeskApi.class)
             .apiKey(this.key)
@@ -128,7 +128,7 @@ public final class OAuthWire implements Wire {
                 final String[] eqn = pair.split("=", 2);
                 final String value;
                 if (eqn.length == 2) {
-                    value = URLDecoder.decode(eqn[1], CharEncoding.UTF_8);
+                    value = URLDecoder.decode(eqn[1], "UTF-8");
                 } else {
                     value = "";
                 }
