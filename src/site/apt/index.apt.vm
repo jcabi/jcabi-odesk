@@ -28,7 +28,7 @@ public class Main {
 
   The only dependency you need is
   (you can also download
-  {{{http://repo1.maven.org/maven2/com/jcabi/jcabi-odesk/${project.version}/jcabi-odesk-${project.version}.jar}<<<jcabi-odesk-${project.version}.jar>>>}
+  {{{http://repo1.maven.org/maven2/com/jcabi/jcabi-odesk/${project.version}/jcabi-odesk-${project.version}.jar}<<<jcabi-odesk-${project.version}.jar>>>}}
   and add it to the classpath):
 
 +--
