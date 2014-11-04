@@ -1,11 +1,18 @@
+  ---
+  Object Oriented Odesk API
+  ---
+  Yegor Bugayenko
+  ---
+  2014-11-02
+  ---
+
 Object Oriented Odesk API
-=========================
 
-Set of classes in `com.jcabi.odesk` package
+Set of classes in <<<com.jcabi.odesk>>> package
 is an object oriented Java adapter of
-[Odesk API](http://developers.odesk.com/w/page/12363985/API%20Documentation):
+{{{http://developers.odesk.com/w/page/12363985/API%20Documentation}Odesk API}}:
 
-```java
++--
 import com.jcabi.odesk.RtOdesk;
 import com.jcabi.odesk.Odesk;
 public class Main {
@@ -14,31 +21,30 @@ public class Main {
     // to be continued
   }
 }
-```
++--
 
-Read [JavaDoc](./apidocs-${project.version}/com/jcabi/odesk/index.html)
-for more information and examples.
+  Read {{{./apidocs-${project.version}/com/jcabi/odesk/index.html}JavaDoc}}
+  for more information and examples.
 
-The only dependency you need is
-(you can also download
-[`jcabi-odesk-${project.version}.jar`](http://repo1.maven.org/maven2/com/jcabi/jcabi-odesk/${project.version}/jcabi-odesk-${project.version}.jar)
-and add it to the classpath):
+  The only dependency you need is
+  (you can also download
+  {{{http://repo1.maven.org/maven2/com/jcabi/jcabi-odesk/${project.version}/jcabi-odesk-${project.version}.jar}<<<jcabi-odesk-${project.version}.jar>>>}
+  and add it to the classpath):
 
-```
++--
 <dependency>
   <groupId>com.jcabi</groupId>
   <artifactId>jcabi-odesk</artifactId>
   <version>${project.version}</version>
 </dependency>
-```
++--
 
-Cutting Edge Version
---------------------
+* Cutting Edge Version
 
 If you want to use current version of the product, you can do it with
-this configuration in your `pom.xml`:
+this configuration in your <<<pom.xml>>>:
 
-```
++--
 <repositories>
   <repository>
     <id>oss.sonatype.org</id>
