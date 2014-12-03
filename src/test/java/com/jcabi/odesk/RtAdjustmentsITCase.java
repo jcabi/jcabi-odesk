@@ -84,7 +84,7 @@ public final class RtAdjustmentsITCase {
             .team(RtAdjustmentsITCase.TEAM)
             .adjustments();
         adjustments.add(
-            "13369359", new Cash.S("10.00"), new Cash.S("0.0"),
+            "13369359", new Cash.S("10.0"),
             "advance payment",
             "please, keep this money for the future, I'm testing :)"
         );

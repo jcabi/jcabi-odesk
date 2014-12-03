@@ -46,7 +46,6 @@ public interface Adjustments {
     /**
      * Make a custom/bonus payment.
      * @param engagement Engagement reference number
-     * @param amount Amount that the provider will receive (can be zero)
      * @param charge Amount to be charged from the payer (can be zero)
      * @param comments Payment comments
      * @param notes Notes to add to the payment
@@ -54,11 +53,11 @@ public interface Adjustments {
      * @throws IOException If fails due to IO problem
      * @see <a href="http://developers.odesk.com/w/page/25400171/Custom%20Payment%20API">Custom Payment API</a>
      * @checkstyle ParameterNumber (10 lines)
+     * @since 0.7
      */
     @NotNull(message = "adjustment ID is never NULL")
     String add(
         @NotNull(message = "engagement ref can't be NULL") String engagement,
-        @NotNull(message = "amount can't be NULL") Cash amount,
         @NotNull(message = "charge amount can't be NULL") Cash charge,
         @NotNull(message = "comments can't be NULL") String comments,
         @NotNull(message = "notes can't be NULL") String notes)

@@ -81,7 +81,6 @@ final class RtAdjustments implements Adjustments {
     public String add(
         @NotNull(message = "engagement ref can't be NULL")
         final String engagement,
-        @NotNull(message = "amount can't be NULL") final Cash amount,
         @NotNull(message = "charge amount can't be NULL") final Cash charge,
         @NotNull(message = "comments can't be NULL") final String comments,
         @NotNull(message = "notes can't be NULL") final String notes)
@@ -90,9 +89,6 @@ final class RtAdjustments implements Adjustments {
             .queryParam("engagement__reference", engagement)
             .queryParam("comments", comments)
             .queryParam("notes", notes);
-        if (!amount.isEmpty()) {
-            uri = uri.queryParam("amount", amount.toString());
-        }
         if (!charge.isEmpty()) {
             uri = uri.queryParam("charge_amount", charge.toString());
         }
