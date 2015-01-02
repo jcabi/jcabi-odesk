@@ -29,6 +29,7 @@
  */
 package com.jcabi.odesk;
 
+import java.math.BigDecimal;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -84,7 +85,7 @@ public final class RtAdjustmentsITCase {
             .team(RtAdjustmentsITCase.TEAM)
             .adjustments();
         adjustments.add(
-            "13369359", new Cash.S("10.0"),
+            "13369359", BigDecimal.TEN,
             "advance payment",
             "please, keep this money for the future, I'm testing :)"
         );

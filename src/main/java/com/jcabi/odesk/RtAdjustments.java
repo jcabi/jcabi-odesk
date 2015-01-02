@@ -36,6 +36,7 @@ import com.jcabi.http.RequestURI;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.response.RestResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -81,7 +82,8 @@ final class RtAdjustments implements Adjustments {
     public String add(
         @NotNull(message = "engagement ref can't be NULL")
         final String engagement,
-        @NotNull(message = "charge amount can't be NULL") final Cash charge,
+        @NotNull(message = "charge amount can't be NULL")
+        final BigDecimal charge,
         @NotNull(message = "comments can't be NULL") final String comments,
         @NotNull(message = "notes can't be NULL") final String notes)
         throws IOException {
@@ -89,7 +91,7 @@ final class RtAdjustments implements Adjustments {
             .queryParam("engagement__reference", engagement)
             .queryParam("comments", comments)
             .queryParam("notes", notes);
-        if (!charge.isEmpty()) {
+        if (charge != null && charge.compareTo(BigDecimal.ZERO) != 0) {
             uri = uri.queryParam("charge_amount", charge.toString());
         }
         return uri.back().method(Request.POST).fetch()

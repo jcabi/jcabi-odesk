@@ -31,6 +31,7 @@ package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
 import java.io.IOException;
+import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -58,7 +59,7 @@ public interface Adjustments {
     @NotNull(message = "adjustment ID is never NULL")
     String add(
         @NotNull(message = "engagement ref can't be NULL") String engagement,
-        @NotNull(message = "charge amount can't be NULL") Cash charge,
+        @NotNull(message = "charge amount can't be NULL") BigDecimal charge,
         @NotNull(message = "comments can't be NULL") String comments,
         @NotNull(message = "notes can't be NULL") String notes)
         throws IOException;
