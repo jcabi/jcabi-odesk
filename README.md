@@ -5,6 +5,7 @@
 
 [![Build Status](https://travis-ci.org/jcabi/jcabi-odesk.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-odesk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk)
+[![JavaDoc](https://img.shields.io/badge/javadoc-html-blue.svg)](http://www.javadoc.io/doc/com.jcabi/jcabi-odesk)
 
 More details are here: [odesk.jcabi.com](http://odesk.jcabi.com/)
 
