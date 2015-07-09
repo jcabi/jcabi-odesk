@@ -64,7 +64,7 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> * OAuth Wire.</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> * @author Yegor Bugayenko (yegor@tpc2.com)</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> * @version $Id$</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> * @version $Id: 6ce5bed47ba193556f50f986589b31f04b69fd51 $</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  @Immutable
@@ -120,65 +120,67 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> Response send(<strong class="jxr_keyword">final</strong> Request req, <strong class="jxr_keyword">final</strong> String home,
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">final</strong> String method,
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">final</strong> Collection&lt;Map.Entry&lt;String, String&gt;&gt; headers,
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">final</strong> InputStream content) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         <strong class="jxr_keyword">final</strong> OAuthService service = <strong class="jxr_keyword">new</strong> ServiceBuilder()
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>             .provider(OAuthWire.OdeskApi.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>             .apiKey(<strong class="jxr_keyword">this</strong>.key)
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>             .apiSecret(<strong class="jxr_keyword">this</strong>.secret)
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>             .debugStream(Logger.stream(Level.FINE, <strong class="jxr_keyword">this</strong>))
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>             .build();
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>         <strong class="jxr_keyword">final</strong> String[] parts = home.split(<span class="jxr_string">"&#92;&#92;?"</span>, 2);
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>         <strong class="jxr_keyword">final</strong> OAuthRequest oauth = <strong class="jxr_keyword">new</strong> OAuthRequest(
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>             Verb.valueOf(method), parts[0]
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         );
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">if</strong> (parts.length == 2) {
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String pair : parts[1].split(<span class="jxr_string">"&amp;"</span>)) {
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>                 <strong class="jxr_keyword">final</strong> String[] eqn = pair.split(<span class="jxr_string">"="</span>, 2);
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>                 <strong class="jxr_keyword">final</strong> String value;
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 <strong class="jxr_keyword">if</strong> (eqn.length == 2) {
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>                     value = URLDecoder.decode(eqn[1], <span class="jxr_string">"UTF-8"</span>);
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>                     value = <span class="jxr_string">""</span>;
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>                 }
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>                 oauth.addQuerystringParameter(eqn[0], value);
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>             }
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>         }
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>         service.signRequest(<strong class="jxr_keyword">new</strong> Token(<strong class="jxr_keyword">this</strong>.token, <strong class="jxr_keyword">this</strong>.tsecret), oauth);
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.origin.send(
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>             req, oauth.getCompleteUrl(), method,
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>             <strong class="jxr_keyword">new</strong> Array&lt;Map.Entry&lt;String, String&gt;&gt;(headers).with(
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>                 <strong class="jxr_keyword">new</strong> AbstractMap.SimpleEntry&lt;String, String&gt;(
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>                     HttpHeaders.AUTHORIZATION,
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>                     oauth.getHeaders().get(HttpHeaders.AUTHORIZATION)
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>                 )
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>             ),
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>             content
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         );
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
-<a class="jxr_linenumber" name="L150" href="#L150">150</a> 
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * Odesk provider.</em>
-<a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     * @link https://github.com/fernandezpablo85/scribe-java/pull/438</em>
-<a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/jcabi/odesk/OAuthWire.html">OdeskApi</a> <strong class="jxr_keyword">extends</strong> DefaultApi10a {
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>         @Override
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>         <strong class="jxr_keyword">public</strong> String getAccessTokenEndpoint() {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>             <strong class="jxr_keyword">return</strong> <span class="jxr_string">"https://www.odesk.com/api/auth/v1/oauth/token/access"</span>;
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>         }
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>         @Override
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">public</strong> String getAuthorizationUrl(<strong class="jxr_keyword">final</strong> Token tkn) {
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>             <strong class="jxr_keyword">return</strong> String.format(
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>                 <span class="jxr_string">"https://www.odesk.com/services/api/auth?oauth_token=%s"</span>,
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>                 tkn.getToken()
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>             );
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>         }
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         @Override
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">public</strong> String getRequestTokenEndpoint() {
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>             <strong class="jxr_keyword">return</strong> <span class="jxr_string">"https://www.odesk.com/api/auth/v1/oauth/token/request"</span>;
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         }
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
-<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
-<a class="jxr_linenumber" name="L173" href="#L173">173</a> }
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">final</strong> InputStream content, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> connect, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> read)
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">final</strong> OAuthService service = <strong class="jxr_keyword">new</strong> ServiceBuilder()
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>             .provider(OAuthWire.OdeskApi.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>             .apiKey(<strong class="jxr_keyword">this</strong>.key)
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>             .apiSecret(<strong class="jxr_keyword">this</strong>.secret)
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>             .debugStream(Logger.stream(Level.FINE, <strong class="jxr_keyword">this</strong>))
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             .build();
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         <strong class="jxr_keyword">final</strong> String[] parts = home.split(<span class="jxr_string">"&#92;&#92;?"</span>, 2);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">final</strong> OAuthRequest oauth = <strong class="jxr_keyword">new</strong> OAuthRequest(
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             Verb.valueOf(method), parts[0]
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         );
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">if</strong> (parts.length == 2) {
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String pair : parts[1].split(<span class="jxr_string">"&amp;"</span>)) {
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>                 <strong class="jxr_keyword">final</strong> String[] eqn = pair.split(<span class="jxr_string">"="</span>, 2);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 <strong class="jxr_keyword">final</strong> String value;
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>                 <strong class="jxr_keyword">if</strong> (eqn.length == 2) {
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>                     value = URLDecoder.decode(eqn[1], <span class="jxr_string">"UTF-8"</span>);
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>                 } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>                     value = <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>                 }
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>                 oauth.addQuerystringParameter(eqn[0], value);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>             }
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>         }
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         service.signRequest(<strong class="jxr_keyword">new</strong> Token(<strong class="jxr_keyword">this</strong>.token, <strong class="jxr_keyword">this</strong>.tsecret), oauth);
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.origin.send(
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>             req, oauth.getCompleteUrl(), method,
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>             <strong class="jxr_keyword">new</strong> Array&lt;Map.Entry&lt;String, String&gt;&gt;(headers).with(
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>                 <strong class="jxr_keyword">new</strong> AbstractMap.SimpleEntry&lt;String, String&gt;(
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>                     HttpHeaders.AUTHORIZATION,
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>                     oauth.getHeaders().get(HttpHeaders.AUTHORIZATION)
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>                 )
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>             ),
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>             content,
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>             connect, read
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>         );
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     }
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> 
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">     * Odesk provider.</em>
+<a class="jxr_linenumber" name="L155" href="#L155">155</a> <em class="jxr_javadoccomment">     * @link https://github.com/fernandezpablo85/scribe-java/pull/438</em>
+<a class="jxr_linenumber" name="L156" href="#L156">156</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/jcabi/odesk/OAuthWire.html">OdeskApi</a> <strong class="jxr_keyword">extends</strong> DefaultApi10a {
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>         @Override
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">public</strong> String getAccessTokenEndpoint() {
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>             <strong class="jxr_keyword">return</strong> <span class="jxr_string">"https://www.odesk.com/api/auth/v1/oauth/token/access"</span>;
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>         }
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         @Override
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">public</strong> String getAuthorizationUrl(<strong class="jxr_keyword">final</strong> Token tkn) {
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">return</strong> String.format(
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>                 <span class="jxr_string">"https://www.odesk.com/services/api/auth?oauth_token=%s"</span>,
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>                 tkn.getToken()
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>             );
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         }
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         @Override
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">public</strong> String getRequestTokenEndpoint() {
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>             <strong class="jxr_keyword">return</strong> <span class="jxr_string">"https://www.odesk.com/api/auth/v1/oauth/token/request"</span>;
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>         }
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     }
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> 
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2012&#x2013;2015 <a href="http://www.jcabi.com">jcabi.com</a>. All rights reserved.</div>
