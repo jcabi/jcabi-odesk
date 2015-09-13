@@ -49,13 +49,13 @@ import lombok.ToString;
 @Immutable
 @ToString
 @Loggable(Loggable.DEBUG)
-@EqualsAndHashCode(of = "entry")
+@EqualsAndHashCode(of = "ent")
 public final class RtOdesk implements Odesk {
 
     /**
      * Request to use.
      */
-    private final transient Request entry;
+    private final transient Request ent;
 
     /**
      * Public ctor.
@@ -67,16 +67,21 @@ public final class RtOdesk implements Odesk {
      */
     public RtOdesk(final String key, final String secret,
         final String token, final String tsecret) {
-        this.entry = new JdkRequest("https://www.odesk.com/api/hr")
+        this.ent = new JdkRequest("https://www.odesk.com/api/hr")
             .through(VerboseWire.class)
             .through(RetryWire.class)
             .through(OAuthWire.class, key, secret, token, tsecret);
     }
 
     @Override
+    public Request entry() {
+        return this.ent;
+    }
+
+    @Override
     @NotNull(message = "teams is never NULL")
     public Teams teams() {
-        return new RtTeams(this.entry);
+        return new RtTeams(this.ent);
     }
 
 }

@@ -30,6 +30,7 @@
 package com.jcabi.odesk;
 
 import com.jcabi.aspects.Immutable;
+import com.jcabi.http.Request;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -41,6 +42,13 @@ import javax.validation.constraints.NotNull;
  */
 @Immutable
 public interface Odesk {
+
+    /**
+     * RESTful request, an entry point to the Github API.
+     * @return Request
+     */
+    @NotNull(message = "request is never NULL")
+    Request entry();
 
     /**
      * Get teams.
