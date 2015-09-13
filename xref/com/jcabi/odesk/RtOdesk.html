@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * Default RESTful implementation of {@link Odesk}.</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> * @author Yegor Bugayenko (yegor@tpc2.com)</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * @version $Id: f71b568ed0329fb0e57cdd82ca7b47c17e8b34f2 $</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * @version $Id: eaf8586cf8474b441ac4714eec2c0dd914240bf7 $</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  @Immutable
@@ -75,7 +75,7 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <a href="../../../com/jcabi/odesk/RtOdesk.html">RtOdesk</a>(<strong class="jxr_keyword">final</strong> String key, <strong class="jxr_keyword">final</strong> String secret,
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">final</strong> String token, <strong class="jxr_keyword">final</strong> String tsecret) {
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">this</strong>.ent = <strong class="jxr_keyword">new</strong> JdkRequest(<span class="jxr_string">"https://www.odesk.com/api/hr"</span>)
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">this</strong>.ent = <strong class="jxr_keyword">new</strong> JdkRequest(<span class="jxr_string">"https://www.upwork.com/api/hr"</span>)
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>              .through(VerboseWire.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              .through(RetryWire.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              .through(OAuthWire.<strong class="jxr_keyword">class</strong>, key, secret, token, tsecret);
