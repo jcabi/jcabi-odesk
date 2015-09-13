@@ -46,6 +46,7 @@ public interface Odesk {
     /**
      * RESTful request, an entry point to the Github API.
      * @return Request
+     * @since 0.11
      */
     @NotNull(message = "request is never NULL")
     Request entry();
