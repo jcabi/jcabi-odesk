@@ -67,7 +67,7 @@ public final class RtOdesk implements Odesk {
      */
     public RtOdesk(final String key, final String secret,
         final String token, final String tsecret) {
-        this.ent = new JdkRequest("https://www.odesk.com/api/hr")
+        this.ent = new JdkRequest("https://www.upwork.com/api/hr")
             .through(VerboseWire.class)
             .through(RetryWire.class)
             .through(OAuthWire.class, key, secret, token, tsecret);
