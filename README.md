@@ -4,6 +4,7 @@
 [![DevOps By Rultor.com](http://www.rultor.com/b/jcabi/jcabi-odesk)](http://www.rultor.com/p/jcabi/jcabi-odesk)
 
 [![Build Status](https://travis-ci.org/jcabi/jcabi-odesk.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-odesk)
+[![PDD status](http://www.0pdd.com/svg?name=jcabi/jcabi-odesk)](http://www.0pdd.com/p?name=teamed/jcabi/jcabi-odesk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk)
 [![Javadoc](https://javadoc-emblem.rhcloud.com/doc/com.jcabi/jcabi-odesk/badge.svg)](http://www.javadoc.io/doc/com.jcabi/jcabi-odesk)
 
