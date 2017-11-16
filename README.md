@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/jcabi/jcabi-odesk.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-odesk)
 [![PDD status](http://www.0pdd.com/svg?name=jcabi/jcabi-odesk)](http://www.0pdd.com/p?name=jcabi/jcabi-odesk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-odesk)
-[![Javadoc](https://javadoc-emblem.rhcloud.com/doc/com.jcabi/jcabi-odesk/badge.svg)](http://www.javadoc.io/doc/com.jcabi/jcabi-odesk)
+[![Javadoc](https://javadoc.io/badge/com.jcabi/jcabi-odesk.svg)](http://www.javadoc.io/doc/com.jcabi/jcabi-odesk)
 
 More details are here: [odesk.jcabi.com](http://odesk.jcabi.com/)
 
