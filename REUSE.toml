@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+
+version = 1
+[[annotations]]
+path = [
+    "**.json",
+    "**.md",
+    "**.txt",
+    "**.vm",
+    "**/*.csv",
+    "**/*.jpg",
+    "**/*.json",
+    "**/*.md",
+    "**/*.pdf",
+    "**/*.png",
+    "**/*.svg",
+    "**/*.txt",
+    "**/*.vm",
+    "**/.DS_Store",
+    "**/.gitignore",
+    "**/.pdd",
+    "**/CNAME",
+    "**/Gemfile.lock",
+    "**/MANIFEST.MF",
+    ".DS_Store",
+    ".gitattributes",
+    ".gitignore",
+    ".pdd",
+    "CNAME",
+    "MANIFEST.MF",
+    "README.md",
+    "renovate.json",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "Copyright (c) 2025 Yegor Bugayenko"
+SPDX-License-Identifier = "MIT"
