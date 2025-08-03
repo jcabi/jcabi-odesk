@@ -1,5 +1,5 @@
 #
-[![](http://img.jcabi.com/logo-square.png)](http://img.jcabi.com/logo-square.png)
+[![logo-square](http://img.jcabi.com/logo-square.png)](http://img.jcabi.com/logo-square.png)
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![Managed by Zerocracy](https://www.0crat.com/badge/C3RUBL5H9.svg)](https://www.0crat.com/p/C3RUBL5H9)
