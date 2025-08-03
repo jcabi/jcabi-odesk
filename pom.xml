@@ -37,7 +37,7 @@
         </site>
     </distributionManagement>
     <properties>
-        <jersey.version>1.19</jersey.version>
+        <jersey.version>1.19.4</jersey.version>
     </properties>
     <dependencies>
         <dependency>
