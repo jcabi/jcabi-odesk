@@ -1,25 +1,27 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
 
-import org.junit.Test;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link Odesk}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
+ * @since 0.1
  */
-public final class OdeskTest {
+final class OdeskTest {
 
     /**
-     * Odesk can work.
-     * @throws Exception If some problem inside
+     * Odesk can be instantiated.
      */
     @Test
-    public void works() throws Exception {
-        // todo
+    void works() {
+        MatcherAssert.assertThat(
+            new RtOdesk("k", "s", "t", "ts"),
+            Matchers.notNullValue()
+        );
     }
-
 }

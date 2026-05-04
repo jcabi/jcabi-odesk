@@ -1,5 +1,5 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
@@ -13,11 +13,11 @@ import com.jcabi.log.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Level;
-import javax.ws.rs.core.HttpHeaders;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.scribe.builder.ServiceBuilder;
@@ -29,15 +29,17 @@ import org.scribe.oauth.OAuthService;
 
 /**
  * OAuth Wire.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
  */
 @Immutable
 @ToString
 @EqualsAndHashCode(of = { "origin", "key", "secret", "token", "tsecret" })
 public final class OAuthWire implements Wire {
+
+    /**
+     * HTTP {@code Authorization} header name.
+     */
+    private static final String AUTHORIZATION = "Authorization";
 
     /**
      * Original wire.
@@ -100,11 +102,11 @@ public final class OAuthWire implements Wire {
             Verb.valueOf(method), parts[0]
         );
         if (parts.length == 2) {
-            for (final String pair : parts[1].split("&")) {
+            for (final String pair : parts[1].split("&", -1)) {
                 final String[] eqn = pair.split("=", 2);
                 final String value;
                 if (eqn.length == 2) {
-                    value = URLDecoder.decode(eqn[1], "UTF-8");
+                    value = URLDecoder.decode(eqn[1], StandardCharsets.UTF_8);
                 } else {
                     value = "";
                 }
@@ -115,9 +117,9 @@ public final class OAuthWire implements Wire {
         return this.origin.send(
             req, oauth.getCompleteUrl(), method,
             new Array<Map.Entry<String, String>>(headers).with(
-                new AbstractMap.SimpleEntry<String, String>(
-                    HttpHeaders.AUTHORIZATION,
-                    oauth.getHeaders().get(HttpHeaders.AUTHORIZATION)
+                new AbstractMap.SimpleEntry<>(
+                    OAuthWire.AUTHORIZATION,
+                    oauth.getHeaders().get(OAuthWire.AUTHORIZATION)
                 )
             ),
             content,
@@ -127,13 +129,16 @@ public final class OAuthWire implements Wire {
 
     /**
      * Odesk provider.
+     * @since 0.1
      * @link https://github.com/fernandezpablo85/scribe-java/pull/438
      */
     public static final class OdeskApi extends DefaultApi10a {
+
         @Override
         public String getAccessTokenEndpoint() {
             return "https://www.odesk.com/api/auth/v1/oauth/token/access";
         }
+
         @Override
         public String getAuthorizationUrl(final Token tkn) {
             return String.format(
@@ -141,10 +146,10 @@ public final class OAuthWire implements Wire {
                 tkn.getToken()
             );
         }
+
         @Override
         public String getRequestTokenEndpoint() {
             return "https://www.odesk.com/api/auth/v1/oauth/token/request";
         }
     }
-
 }

@@ -1,40 +1,37 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Integration case for {@link RtTeams}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
+ * @since 0.1
  * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-public final class RtTeamsITCase {
+final class RtTeamsITCase {
 
     /**
      * Odesk we're working with.
      * @checkstyle VisibilityModifier (3 lines)
      */
-    @Rule
-    public final transient OdeskRule rule = new OdeskRule();
+    @RegisterExtension
+    private final transient OdeskRule rule = new OdeskRule();
 
     /**
      * RtTeams can list all teams.
      * @throws Exception If some problem inside
      */
     @Test
-    public void listsAllTeamReferences() throws Exception {
-        final Teams teams = this.rule.odesk().teams();
+    void listsAllTeamReferences() throws Exception {
         MatcherAssert.assertThat(
-            teams.iterate(),
+            this.rule.odesk().teams().iterate(),
             Matchers.not(Matchers.emptyIterable())
         );
     }
-
 }

@@ -1,14 +1,16 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
 
 import com.jcabi.log.Logger;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Assume;
-import org.junit.Test;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
@@ -24,11 +26,10 @@ import org.scribe.oauth.OAuthService;
  *   -Dfailsafe.odesk.key=... -Dfailsafe.odesk.secret=...
  * </pre>
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
+ * @since 0.1
  * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-public final class RtOdeskOauthExample {
+final class RtOdeskOauthExample {
 
     /**
      * Odesk key.
@@ -44,11 +45,14 @@ public final class RtOdeskOauthExample {
 
     /**
      * Odesk access token can be obtained through OAuth.
-     * @throws Exception If some problem inside
      */
     @Test
-    public void obtainsAccessToken() throws Exception {
-        Assume.assumeThat(RtOdeskOauthExample.KEY, Matchers.notNullValue());
+    @SuppressWarnings("PMD.UnnecessaryLocalRule")
+    void obtainsAccessToken() {
+        Assumptions.assumeTrue(
+            RtOdeskOauthExample.KEY != null,
+            "failsafe.odesk.key is not set"
+        );
         final OAuthService service = new ServiceBuilder()
             .provider(OAuthWire.OdeskApi.class)
             .apiKey(RtOdeskOauthExample.KEY)
@@ -60,11 +64,17 @@ public final class RtOdeskOauthExample {
             service.getAuthorizationUrl(rqst)
         );
         Logger.info(this, "enter Odesk verifier and press ENTER:");
-        final Scanner input = new Scanner(System.in);
-        final Verifier verifier = new Verifier(input.nextLine());
-        final Token access = service.getAccessToken(rqst, verifier);
+        final Token access;
+        try (Scanner input = new Scanner(System.in, StandardCharsets.UTF_8)) {
+            access = service.getAccessToken(
+                rqst, new Verifier(input.nextLine())
+            );
+        }
         Logger.info(this, "access token is: %s", access.getToken());
         Logger.info(this, "access token secret is: %s", access.getSecret());
+        MatcherAssert.assertThat(
+            access.getToken(),
+            Matchers.not(Matchers.emptyString())
+        );
     }
-
 }
