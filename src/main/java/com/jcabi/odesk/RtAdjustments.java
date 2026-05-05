@@ -1,5 +1,5 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
@@ -10,33 +10,35 @@ import com.jcabi.http.Request;
 import com.jcabi.http.RequestURI;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.response.RestResponse;
+import jakarta.json.JsonString;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.json.JsonString;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * RESTful {@link Adjustments}.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
  */
 @Immutable
 @ToString
 @Loggable(Loggable.DEBUG)
-@EqualsAndHashCode(of = "entry")
+@EqualsAndHashCode(of = { "request", "team" })
 final class RtAdjustments implements Adjustments {
 
     /**
-     * Request to use.
+     * Underlying HTTP request to oDesk.
      */
-    private final transient Request entry;
+    private final transient Request request;
+
+    /**
+     * Team reference name.
+     */
+    private final transient String team;
 
     /**
      * Public ctor.
@@ -44,11 +46,8 @@ final class RtAdjustments implements Adjustments {
      * @param name Team ref/name
      */
     RtAdjustments(final Request req, final String name) {
-        this.entry = req.uri()
-            .path("v2/teams")
-            .path(name)
-            .path("adjustments.json")
-            .back();
+        this.request = req;
+        this.team = name;
     }
 
     // @checkstyle ParameterNumber (10 lines)
@@ -62,7 +61,7 @@ final class RtAdjustments implements Adjustments {
         @NotNull(message = "comments can't be NULL") final String comments,
         @NotNull(message = "notes can't be NULL") final String notes)
         throws IOException {
-        RequestURI uri = this.entry.uri()
+        RequestURI uri = this.entry().uri()
             .queryParam("engagement__reference", engagement)
             .queryParam("comments", comments)
             .queryParam("notes", notes);
@@ -80,16 +79,28 @@ final class RtAdjustments implements Adjustments {
     @Override
     @NotNull(message = "iterable of adjustments is never NULL")
     public Iterable<String> iterate() throws IOException {
-        final Collection<JsonString> values = this.entry.fetch()
+        final Collection<JsonString> values = this.entry().fetch()
             .as(RestResponse.class)
             .assertStatus(HttpURLConnection.HTTP_OK)
             .as(JsonResponse.class)
             .json().readObject().getJsonArray("adjustments")
             .getValuesAs(JsonString.class);
-        final Collection<String> refs = new ArrayList<String>(values.size());
+        final Collection<String> refs = new ArrayList<>(values.size());
         for (final JsonString val : values) {
             refs.add(val.getString());
         }
         return refs;
+    }
+
+    /**
+     * Build the entry request for the adjustments resource.
+     * @return Entry request
+     */
+    private Request entry() {
+        return this.request.uri()
+            .path("v2/teams")
+            .path(this.team)
+            .path("adjustments.json")
+            .back();
     }
 }

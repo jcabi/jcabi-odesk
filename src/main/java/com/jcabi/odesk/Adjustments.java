@@ -1,5 +1,5 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Adjustments.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
  */
 @Immutable
@@ -28,8 +25,8 @@ public interface Adjustments {
      * @return Reference ID of a new adjustment
      * @throws IOException If fails due to IO problem
      * @see <a href="http://developers.odesk.com/w/page/25400171/Custom%20Payment%20API">Custom Payment API</a>
-     * @checkstyle ParameterNumber (10 lines)
      * @since 0.7
+     * @checkstyle ParameterNumber (10 lines)
      */
     @NotNull(message = "adjustment ID is never NULL")
     String add(
@@ -47,5 +44,4 @@ public interface Adjustments {
      */
     @NotNull(message = "iterable of adjustments is never NULL")
     Iterable<String> iterate() throws IOException;
-
 }

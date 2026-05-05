@@ -1,5 +1,5 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
@@ -9,20 +9,17 @@ import com.jcabi.aspects.Loggable;
 import com.jcabi.http.Request;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.response.RestResponse;
+import jakarta.json.JsonObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.json.JsonObject;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * RESTful {@link Teams}.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
  */
 @Immutable
@@ -54,7 +51,7 @@ final class RtTeams implements Teams {
             .as(JsonResponse.class)
             .json().readObject().getJsonArray("teams")
             .getValuesAs(JsonObject.class);
-        final Collection<String> refs = new ArrayList<String>(teams.size());
+        final Collection<String> refs = new ArrayList<>(teams.size());
         for (final JsonObject team : teams) {
             refs.add(team.getString("reference"));
         }

@@ -1,22 +1,19 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
 
 import com.jcabi.log.Logger;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * Rule that creates {@link Odesk} instance.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
+ * Extension that creates {@link Odesk} instance.
  * @since 0.3
  */
-final class OdeskRule implements TestRule {
+final class OdeskRule implements BeforeEachCallback {
 
     /**
      * Odesk key.
@@ -47,38 +44,15 @@ final class OdeskRule implements TestRule {
      */
     private transient Odesk subj;
 
-    /**
-     * Get odesk.
-     * @return Odesk
-     */
-    public Odesk odesk() {
-        return this.subj;
-    }
-
     @Override
-    public Statement apply(final Statement stmt, final Description desc) {
-        // @checkstyle IllegalThrows (10 lines)
-        return new Statement() {
-            @Override
-            public void evaluate() throws Throwable {
-                if (OdeskRule.KEY == null) {
-                    Logger.warn(
-                        this,
-                        "sys prop failsafe.odesk.key is not set, skipping"
-                    );
-                } else {
-                    OdeskRule.this.connect();
-                    stmt.evaluate();
-                }
-            }
-        };
-    }
-
-    /**
-     * Create Odesk subj.
-     * @throws Exception If fails
-     */
-    private void connect() throws Exception {
+    public void beforeEach(final ExtensionContext context) {
+        if (OdeskRule.KEY == null) {
+            Logger.warn(
+                this,
+                "sys prop failsafe.odesk.key is not set, skipping"
+            );
+            Assumptions.assumeTrue(false, "failsafe.odesk.key is not set");
+        }
         this.subj = new RtOdesk(
             OdeskRule.KEY,
             OdeskRule.SECRET,
@@ -87,4 +61,11 @@ final class OdeskRule implements TestRule {
         );
     }
 
+    /**
+     * Get odesk.
+     * @return Odesk
+     */
+    Odesk odesk() {
+        return this.subj;
+    }
 }

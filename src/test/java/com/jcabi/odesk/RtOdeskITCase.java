@@ -1,40 +1,36 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Integration case for {@link RtOdesk}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
+ * @since 0.1
  * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-public final class RtOdeskITCase {
+final class RtOdeskITCase {
 
     /**
      * Odesk we're working with.
      * @checkstyle VisibilityModifier (3 lines)
      */
-    @Rule
-    public final transient OdeskRule rule = new OdeskRule();
+    @RegisterExtension
+    private final transient OdeskRule rule = new OdeskRule();
 
     /**
      * RtOdesk can authenticate itself.
-     * @throws Exception If some problem inside
      */
     @Test
-    public void authenticatesItself() throws Exception {
-        final Odesk odesk = this.rule.odesk();
+    void authenticatesItself() {
         MatcherAssert.assertThat(
-            odesk,
+            this.rule.odesk(),
             Matchers.notNullValue()
         );
     }
-
 }
