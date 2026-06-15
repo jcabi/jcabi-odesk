@@ -1,5 +1,5 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
@@ -10,9 +10,6 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Teams.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
  */
 @Immutable
@@ -33,5 +30,4 @@ public interface Teams {
      */
     @NotNull(message = "team is never NULL")
     Team team(@NotNull(message = "ref can't be NULL") String ref);
-
 }

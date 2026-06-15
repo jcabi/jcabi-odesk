@@ -1,5 +1,5 @@
-/**
- * SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
  * SPDX-License-Identifier: MIT
  */
 package com.jcabi.odesk;
@@ -7,16 +7,16 @@ package com.jcabi.odesk;
 import java.math.BigDecimal;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Integration case for {@link RtAdjustments}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
+ * @since 0.1
  * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-public final class RtAdjustmentsITCase {
+final class RtAdjustmentsITCase {
 
     /**
      * Team number.
@@ -28,22 +28,22 @@ public final class RtAdjustmentsITCase {
      * Odesk we're working with.
      * @checkstyle VisibilityModifier (3 lines)
      */
-    @Rule
-    public final transient OdeskRule rule = new OdeskRule();
+    @RegisterExtension
+    private final transient OdeskRule rule = new OdeskRule();
 
     /**
      * RtAdjustments can list all items.
      * @throws Exception If some problem inside
      */
     @Test
-    @org.junit.Ignore
-    public void listsAllAdjustments() throws Exception {
-        final Adjustments adjustments = this.rule.odesk()
-            .teams()
-            .team(RtAdjustmentsITCase.TEAM)
-            .adjustments();
+    @Disabled
+    void listsAllAdjustments() throws Exception {
         MatcherAssert.assertThat(
-            adjustments.iterate(),
+            this.rule.odesk()
+                .teams()
+                .team(RtAdjustmentsITCase.TEAM)
+                .adjustments()
+                .iterate(),
             Matchers.notNullValue()
         );
     }
@@ -53,17 +53,14 @@ public final class RtAdjustmentsITCase {
      * @throws Exception If some problem inside
      */
     @Test
-    @org.junit.Ignore
-    public void makesBonusPayment() throws Exception {
-        final Adjustments adjustments = this.rule.odesk()
+    @Disabled
+    @SuppressWarnings("PMD.UnnecessaryLocalRule")
+    void makesBonusPayment() throws Exception {
+        final String reference = this.rule.odesk()
             .teams()
             .team(RtAdjustmentsITCase.TEAM)
-            .adjustments();
-        adjustments.add(
-            "13369359", BigDecimal.TEN,
-            "advance payment",
-            "please, keep this money for the future, I'm testing :)"
-        );
+            .adjustments()
+            .add("13369359", BigDecimal.TEN, "advance payment", "for tests");
+        MatcherAssert.assertThat(reference, Matchers.notNullValue());
     }
-
 }
