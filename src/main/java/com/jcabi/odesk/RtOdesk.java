@@ -50,7 +50,6 @@ public final class RtOdesk implements Odesk {
      * @param scrt Application secret
      * @param tkn OAuth access token
      * @param tscrt OAuth access token secret part
-     * @checkstyle ParameterNumber (10 lines)
      */
     public RtOdesk(final String app, final String scrt,
         final String tkn, final String tscrt) {

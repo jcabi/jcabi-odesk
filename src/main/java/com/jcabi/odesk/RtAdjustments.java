@@ -50,7 +50,6 @@ final class RtAdjustments implements Adjustments {
         this.team = name;
     }
 
-    // @checkstyle ParameterNumber (10 lines)
     @Override
     @NotNull(message = "adjustment ID is never NULL")
     public String add(

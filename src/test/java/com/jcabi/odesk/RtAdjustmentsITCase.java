@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 /**
  * Integration case for {@link RtAdjustments}.
  * @since 0.1
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
 final class RtAdjustmentsITCase {
 
@@ -26,7 +25,6 @@ final class RtAdjustmentsITCase {
 
     /**
      * Odesk we're working with.
-     * @checkstyle VisibilityModifier (3 lines)
      */
     @RegisterExtension
     private final transient OdeskRule rule = new OdeskRule();

@@ -12,13 +12,11 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 /**
  * Integration case for {@link RtOdesk}.
  * @since 0.1
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
 final class RtOdeskITCase {
 
     /**
      * Odesk we're working with.
-     * @checkstyle VisibilityModifier (3 lines)
      */
     @RegisterExtension
     private final transient OdeskRule rule = new OdeskRule();

@@ -27,7 +27,6 @@ import org.scribe.oauth.OAuthService;
  * </pre>
  *
  * @since 0.1
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
 final class RtOdeskOauthExample {
 
@@ -47,7 +46,6 @@ final class RtOdeskOauthExample {
      * Odesk access token can be obtained through OAuth.
      */
     @Test
-    @SuppressWarnings("PMD.UnnecessaryLocalRule")
     void obtainsAccessToken() {
         Assumptions.assumeTrue(
             RtOdeskOauthExample.KEY != null,
