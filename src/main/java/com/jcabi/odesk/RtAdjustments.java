@@ -91,10 +91,6 @@ final class RtAdjustments implements Adjustments {
         return refs;
     }
 
-    /**
-     * Build the entry request for the adjustments resource.
-     * @return Entry request
-     */
     private Request entry() {
         return this.request.uri()
             .path("v2/teams")

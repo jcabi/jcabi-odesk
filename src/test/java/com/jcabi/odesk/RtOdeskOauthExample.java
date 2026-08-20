@@ -52,7 +52,7 @@ final class RtOdeskOauthExample {
             "failsafe.odesk.key is not set"
         );
         final OAuthService service = new ServiceBuilder()
-            .provider(OAuthWire.OdeskApi.class)
+            .provider(OdeskApi.class)
             .apiKey(RtOdeskOauthExample.KEY)
             .apiSecret(RtOdeskOauthExample.SECRET)
             .build();
