@@ -28,6 +28,7 @@ import org.scribe.oauth.OAuthService;
 
 /**
  * OAuth Wire.
+ *
  * @since 0.1
  */
 @Immutable
@@ -67,6 +68,7 @@ public final class OAuthWire implements Wire {
 
     /**
      * Public ctor.
+     *
      * @param wire Original wire
      * @param akey App key
      * @param scrt App secret

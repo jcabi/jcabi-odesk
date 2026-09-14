@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Adjustments.
+ *
  * @since 0.1
  */
 @Immutable
@@ -18,6 +19,7 @@ public interface Adjustments {
 
     /**
      * Make a custom/bonus payment.
+     *
      * @param engagement Engagement reference number
      * @param charge Amount to be charged from the payer (can be zero)
      * @param comments Payment comments
@@ -38,6 +40,7 @@ public interface Adjustments {
 
     /**
      * Get list of all adjustments (their reference IDs).
+     *
      * @return List of them all
      * @throws IOException If fails due to IO problem
      * @see <a href="http://developers.odesk.com/w/page/25400171/Custom%20Payment%20API">Custom Payment API</a>

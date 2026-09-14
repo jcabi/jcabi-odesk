@@ -16,6 +16,7 @@ import lombok.ToString;
 
 /**
  * Default RESTful implementation of {@link Odesk}.
+ *
  * @since 0.1
  */
 @Immutable
@@ -46,6 +47,7 @@ public final class RtOdesk implements Odesk {
 
     /**
      * Public ctor.
+     *
      * @param app Application key
      * @param scrt Application secret
      * @param tkn OAuth access token

@@ -8,6 +8,7 @@ import com.jcabi.aspects.Immutable;
 
 /**
  * Team.
+ *
  * @since 0.1
  */
 @FunctionalInterface
@@ -16,6 +17,7 @@ public interface Team {
 
     /**
      * Get adjustments.
+     *
      * @return Adjustments
      * @see <a href="http://developers.odesk.com/w/page/25400171/Custom%20Payment%20API">Custom Payment API</a>
      */

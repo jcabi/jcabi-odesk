@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Integration case for {@link RtAdjustments}.
+ *
  * @since 0.1
  */
 final class RtAdjustmentsITCase {
@@ -31,6 +32,7 @@ final class RtAdjustmentsITCase {
 
     /**
      * RtAdjustments can list all items.
+     *
      * @throws Exception If some problem inside
      */
     @Test
@@ -48,6 +50,7 @@ final class RtAdjustmentsITCase {
 
     /**
      * RtAdjustments can make a bonus payment.
+     *
      * @throws Exception If some problem inside
      */
     @Test

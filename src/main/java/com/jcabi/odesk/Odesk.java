@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Odesk.
+ *
  * @since 0.1
  */
 @Immutable
@@ -17,6 +18,7 @@ public interface Odesk {
 
     /**
      * RESTful request, an entry point to the Github API.
+     *
      * @return Request
      * @since 0.11
      */
@@ -25,6 +27,7 @@ public interface Odesk {
 
     /**
      * Get teams.
+     *
      * @return Teams
      */
     @NotNull(message = "teams is never NULL")

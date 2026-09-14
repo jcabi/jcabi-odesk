@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * Extension that creates {@link Odesk} instance.
+ *
  * @since 0.3
  */
 final class OdeskRule implements BeforeEachCallback {
@@ -63,6 +64,7 @@ final class OdeskRule implements BeforeEachCallback {
 
     /**
      * Get odesk.
+     *
      * @return Odesk
      */
     Odesk odesk() {

@@ -22,6 +22,7 @@ import lombok.ToString;
 
 /**
  * RESTful {@link Adjustments}.
+ *
  * @since 0.1
  */
 @Immutable
@@ -42,6 +43,7 @@ final class RtAdjustments implements Adjustments {
 
     /**
      * Public ctor.
+     *
      * @param req Request
      * @param name Team ref/name
      */

@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Teams.
+ *
  * @since 0.1
  */
 @Immutable
@@ -17,6 +18,7 @@ public interface Teams {
 
     /**
      * Get reference IDs of all teams.
+     *
      * @return List of reference IDs
      * @throws IOException If fails due to IO problem
      */
@@ -25,6 +27,7 @@ public interface Teams {
 
     /**
      * Get team by reference.
+     *
      * @param ref Reference
      * @return Team
      */

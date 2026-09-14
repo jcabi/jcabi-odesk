@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Integration case for {@link RtOdesk}.
+ *
  * @since 0.1
  */
 final class RtOdeskITCase {

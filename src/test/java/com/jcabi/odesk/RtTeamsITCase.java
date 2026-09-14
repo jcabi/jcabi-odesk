@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Integration case for {@link RtTeams}.
+ *
  * @since 0.1
  */
 final class RtTeamsITCase {
@@ -23,6 +24,7 @@ final class RtTeamsITCase {
 
     /**
      * RtTeams can list all teams.
+     *
      * @throws Exception If some problem inside
      */
     @Test

@@ -20,6 +20,7 @@ import lombok.ToString;
 
 /**
  * RESTful {@link Teams}.
+ *
  * @since 0.1
  */
 @Immutable
@@ -35,6 +36,7 @@ final class RtTeams implements Teams {
 
     /**
      * Public ctor.
+     *
      * @param req Request
      */
     RtTeams(final Request req) {

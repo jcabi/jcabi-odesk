@@ -9,10 +9,18 @@ import org.scribe.model.Token;
 
 /**
  * Odesk provider.
+ *
  * @since 0.1
  * @link https://github.com/fernandezpablo85/scribe-java/pull/438
  */
 public final class OdeskApi extends DefaultApi10a {
+
+    /**
+     * Ctor.
+     */
+    public OdeskApi() {
+        super();
+    }
 
     @Override
     public String getAccessTokenEndpoint() {

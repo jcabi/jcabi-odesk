@@ -19,7 +19,7 @@ import org.scribe.oauth.OAuthService;
 /**
  * OAuth example for {@link RtOdesk}.
  *
- * <p>Run this example from command line like this:
+ * <p>Run this example from command line like this:</p>
  *
  * <pre>
  * $ mvn clean install -Dit.test=RtOdeskOauthExample \
