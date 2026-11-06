@@ -7,7 +7,6 @@ package com.jcabi.odesk;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.http.Request;
-import com.jcabi.http.RequestURI;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.response.RestResponse;
 import jakarta.json.JsonString;
@@ -62,14 +61,12 @@ final class RtAdjustments implements Adjustments {
         @NotNull(message = "comments can't be NULL") final String comments,
         @NotNull(message = "notes can't be NULL") final String notes)
         throws IOException {
-        RequestURI uri = this.entry().uri()
+        return this.entry().uri()
             .queryParam("engagement__reference", engagement)
             .queryParam("comments", comments)
-            .queryParam("notes", notes);
-        if (charge != null && charge.compareTo(BigDecimal.ZERO) != 0) {
-            uri = uri.queryParam("charge_amount", charge.toString());
-        }
-        return uri.back().method(Request.POST).fetch()
+            .queryParam("notes", notes)
+            .queryParam("charge_amount", charge.toString())
+            .back().method(Request.POST).fetch()
             .as(RestResponse.class)
             .assertStatus(HttpURLConnection.HTTP_OK)
             .as(JsonResponse.class)
