@@ -1,8 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "automerge": true,
-  "platformAutomerge": false
+  "platformAutomerge": false,
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "org.hibernate.validator:hibernate-validator"
+      ],
+      "allowedVersions": "<7",
+      "description": "jcabi-aspects and this SDK use javax.validation; Hibernate Validator 7+ uses jakarta.validation."
+    }
+  ]
 }
