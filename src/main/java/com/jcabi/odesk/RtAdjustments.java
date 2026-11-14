@@ -65,7 +65,7 @@ final class RtAdjustments implements Adjustments {
             .queryParam("engagement__reference", engagement)
             .queryParam("comments", comments)
             .queryParam("notes", notes)
-            .queryParam("charge_amount", charge.toString())
+            .queryParam("charge_amount", charge.toPlainString())
             .back().method(Request.POST).fetch()
             .as(RestResponse.class)
             .assertStatus(HttpURLConnection.HTTP_OK)
