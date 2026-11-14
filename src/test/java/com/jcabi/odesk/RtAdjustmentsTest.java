@@ -22,14 +22,15 @@ import org.junit.jupiter.api.Test;
 final class RtAdjustmentsTest {
 
     /**
-     * RtAdjustments sends the supplied charge, including zero.
+     * RtAdjustments sends the supplied charge in plain decimal form, including zero.
      *
      * @throws Exception If some problem inside
      */
     @Test
     void sendsChargeAmount() throws Exception {
         for (final BigDecimal charge : Arrays.asList(
-            BigDecimal.ZERO, new BigDecimal("0.00"), BigDecimal.TEN
+            BigDecimal.ZERO, new BigDecimal("0.00"), BigDecimal.TEN,
+            new BigDecimal("1E+3"), new BigDecimal("0.0000001")
         )) {
             final Request request = new JdkRequest("http://localhost").through(
                 (self, home, method, headers, content, connect, read) -> {
@@ -37,7 +38,7 @@ final class RtAdjustmentsTest {
                     MatcherAssert.assertThat(
                         home,
                         Matchers.containsString(
-                            "charge_amount=".concat(charge.toString())
+                            "charge_amount=".concat(charge.toPlainString())
                         )
                     );
                     return new FakeRequest()
