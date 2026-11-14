@@ -109,7 +109,9 @@ public final class OAuthWire implements Wire {
                 } else {
                     value = "";
                 }
-                oauth.addQuerystringParameter(eqn[0], value);
+                oauth.addQuerystringParameter(
+                    URLDecoder.decode(eqn[0], StandardCharsets.UTF_8), value
+                );
             }
         }
         service.signRequest(new Token(this.token, this.tsecret), oauth);
